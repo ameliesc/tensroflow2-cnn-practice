@@ -4,9 +4,31 @@ from tensorflow.python.framework.convert_to_constants import convert_variables_t
 from tensorflow.keras import layers
 import tensorflow_datasets as tfds
 
-class MyLittleCNN(tf.keras.Model):  
+### Todo for making model mor generalizeable :
+#-save history when fitting, create plot function for visualizing history
+#-generalize fit function to add other callback functions as well
+#-generalize model independent of dataset
+#-make extra function wher model is defined, build and compiled so that it can be overrun or redefined when necessary 
+class MyLittleCNN(tf.keras.Model):
+    """ CNN class build on keras base model. CNN is defined in init function, and build and compiled at the same time. Currently build for Cifar10 dataset 
+    Other properties:
+    : call: for inference
+    : fit_and_save_checkpoints: just like keras fit function but with checkpoint call back added
+    : load_from_checkpoint: load model from checkpoint 
+    : plot_results: plots input image and class along with predicted class 
+    : save_frozen_graph: saves tensorflow frozen graph with tensorflow 1.x compatibility
+    : load_frozen_graph: loads tensorflow forzen graph with tensorflow 1.x compatibility
+    """ 
      
     def __init__(self, optimizer, loss, input_shape, training=False ):
+        """
+        CNN graph is defined, build and compiled here.
+        Input:
+        : optimizer: tensorflow optimizer function
+        : loss: tensorflow loss function
+        : input_shape: shape of input image (current cnn is build for cifar10 dataset)
+        : training: boolian - defines wether model should be trained or not 
+        """
         super(MyLittleCNN,self).__init__()
         self.trainable = training
         self.conv1 = layers.Conv2D(32, (3, 3), activation='relu', input_shape=(input_shape))
