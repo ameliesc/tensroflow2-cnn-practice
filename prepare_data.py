@@ -29,9 +29,9 @@ class DataLoader(object):  # lets use CIFAR dataset! make your own data loader
 
     # Resize all images to image_size x image_size ## tod do: need to make this so it machtes cifar10 dataset
     def _prepare_data(self):
-        #self.train_data = self.train_data_raw.map(self._augmentate_data)
-        #self.validation_data = self.validation_data_raw.map(self._augmentate_data)
-        #self.test_data = self.test_data_raw.map(self._augmentate_data)
+        self.train_data = self.train_data_raw.map(self._augmentate_data)
+        self.validation_data = self.validation_data_raw.map(self._augmentate_data)
+        self.test_data = self.test_data_raw.map(self._augmentate_data)
         self.train_data = self.train_data_raw.map(self._preprocess_sample)
         self.validation_data = self.validation_data_raw.map(self._preprocess_sample)
         self.test_data = self.test_data_raw.map(self._preprocess_sample)
